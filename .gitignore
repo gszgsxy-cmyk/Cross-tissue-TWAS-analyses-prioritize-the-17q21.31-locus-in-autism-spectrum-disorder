@@ -1,0 +1,15 @@
+# Local configuration, caches and temporary files
+.env
+.env.*
+!.env.example
+config/paths.local.json
+__pycache__/
+*.py[cod]
+.Rhistory
+.RData
+.Rproj.user/
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db

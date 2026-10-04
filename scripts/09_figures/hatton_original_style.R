@@ -1,0 +1,43 @@
+Sys.setlocale('LC_ALL','Chinese (Simplified)_China.utf8')
+args <- commandArgs(TRUE)
+root <- normalizePath(args[1], winslash='/')
+out <- file.path(root,'outputs/Figure4C_Hatton_original_style_20260928')
+dir.create(out,recursive=TRUE,showWarnings=FALSE)
+library(forestploter)
+library(grid)
+library(gridExtra)
+source(file.path(root,'outputs/2026-09-19_GTEx_nonbrain_SMR_rebuild/07_scripts/figure4_style.R'))
+d <- read.delim(file.path(root,'outputs/restructure_20260922/Supplementary_tables/S11E_Hatton_EUR_FDRsignificant.tsv'),check.names=FALSE)
+stopifnot(nrow(d)==30,all(d$FDR<.05),!anyDuplicated(d$ProbeID),sum(d$In_17q21.31)==21)
+d <- d[order(d$Chr,d$Position),]
+all_tests <- read.delim(file.path(root,'outputs/2026-09-22_Hatton_EUR_mQTL_rebuild/01_Hatton_EUR_all_chr_merged_withFDR.tsv'))
+valid <- is.finite(all_tests$p_SMR_numeric) & all_tests$p_SMR_numeric>=0 & all_tests$p_SMR_numeric<=1
+recalc <- p.adjust(all_tests$p_SMR_numeric[valid],method='BH')
+stopifnot(sum(valid)==137310,sum(recalc<.05)==30,max(abs(recalc-all_tests$FDR_EUR[valid]))<1e-10,setequal(all_tests$probeID[valid][recalc<.05],d$ProbeID))
+d$CI_lower <- d$b_SMR-1.96*d$se_SMR
+d$CI_upper <- d$b_SMR+1.96*d$se_SMR
+d$HEIDI_category[is.na(d$p_HEIDI)] <- 'HEIDI unavailable'
+fmt <- function(x) ifelse(is.na(x),'NA',ifelse(x<.0001,formatC(x,format='e',digits=2),formatC(x,format='f',digits=4)))
+tab <- data.frame(CpG=d$ProbeID,`Genomic position`=paste0('chr',d$Chr,':',d$Position),`Top SNP`=d$Top_SNP,`Effect (95% CI)`=sprintf('%.4f (%.4f to %.4f)',d$b_SMR,d$CI_lower,d$CI_upper),` `=paste(rep(' ',22),collapse=' '),FDR=fmt(d$FDR),`HEIDI P value`=fmt(d$p_HEIDI),`SNPs in HEIDI`=ifelse(is.na(d$n_HEIDI),'NA',d$n_HEIDI),`HEIDI assessment`=d$HEIDI_category,check.names=FALSE)
+a <- max(abs(c(d$CI_lower,d$CI_upper)))
+tab$FDR <- formatC(d$FDR,format='f',digits=6)
+ticks <- pretty(c(-a,a),n=5); lim <- max(abs(ticks))
+p <- forest(tab,est=d$b_SMR,lower=d$CI_lower,upper=d$CI_upper,ci_column=5,sizes=.55,ref_line=0,xlim=c(-lim,lim),ticks_at=ticks,xlab='SMR effect estimate (95% CI)',theme=tm)
+p <- style_forest(p,tab,d$HEIDI_category)
+pdf(NULL,width=22,height=20)
+w <- convertWidth(sum(p$widths),'in',valueOnly=TRUE)+.5
+h <- convertHeight(sum(p$heights),'in',valueOnly=TRUE)+1.1
+dev.off()
+figure <- arrangeGrob(textGrob('C',x=unit(.01,'npc'),hjust=0,gp=gpar(fontfamily='serif',fontface='bold',fontsize=14)),p,ncol=1,heights=unit.c(unit(.4,'in'),unit(h-.4,'in')))
+stem <- file.path(out,'Figure_4C_Hatton_EUR_mQTL')
+pdf(paste0(stem,'.pdf'),width=w,height=h,useDingbats=FALSE)
+grid.newpage(); grid.draw(figure); dev.off()
+png(paste0(stem,'_preview.png'),width=round(w*100),height=round(h*100),res=100)
+grid.newpage(); grid.draw(figure); dev.off()
+tiff(paste0(stem,'.tiff'),width=round(w*600),height=round(h*600),res=600,compression='lzw')
+grid.newpage(); grid.draw(figure); dev.off()
+write.table(d[,c('ProbeID','Chr','Position','Top_SNP','b_SMR','se_SMR','CI_lower','CI_upper','FDR','p_HEIDI','n_HEIDI','HEIDI_category','In_17q21.31')],file.path(out,'Figure_4C_plot_data.tsv'),sep='\t',quote=FALSE,row.names=FALSE)
+file.copy(file.path(root,'outputs/2026-09-19_GTEx_nonbrain_SMR_rebuild/07_scripts/figure4_style.R'),out,overwrite=TRUE)
+file.copy(file.path(root,'work/submission_figures_20260928/hatton_original_style.R'),out,overwrite=TRUE)
+capture.output(sessionInfo(),file=file.path(out,'R_sessionInfo.txt'))
+cat('Saved',nrow(d),'rows;',w,'x',h,'inches\n')

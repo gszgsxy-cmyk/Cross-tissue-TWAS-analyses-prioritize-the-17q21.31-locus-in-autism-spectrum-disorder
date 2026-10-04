@@ -1,0 +1,10 @@
+{
+  "TWAS_ROOT": "/replace/with/twas_root",
+  "SMR_ROOT": "/replace/with/smr_root",
+  "SMR_WSL_ROOT": "/replace/with/smr_wsl_root",
+  "LEGACY_SMR_ROOT": "/replace/with/legacy_smr_root",
+  "WORKSPACE_ROOT": "/replace/with/workspace_root",
+  "R_TOOLS_ROOT": "/replace/with/r_tools_root",
+  "USER_HOME": "/replace/with/user_home",
+  "WORKSPACE_WSL_ROOT": "/replace/with/workspace_wsl_root"
+}
