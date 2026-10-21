@@ -43,3 +43,22 @@ The archive contains available analysis scripts and sequential processing record
 ## 6. Licensing
 
 FUSION and derived FUSION scripts retain the upstream GPLv3 license. MR-JTI/PrediXcan-R retains the upstream MIT license. License texts are provided in `third_party`. A collection-wide license has not been assigned.
+
+
+## 7. FUSION regional conditional/joint analysis reproducibility
+
+The combined archive supports the FUSION checks described in Reviewer 3 Major Comments 1 and 2 during manuscript revision, covering the core primary (353 models), extended primary (358), core all-testable (559), and extended all-testable (1,011) analyses.
+
+- [Combined reproducibility ZIP](reproducibility/FUSION_GRCh38_Reproducibility.zip) ([direct download](https://raw.githubusercontent.com/gszgsxy-cmyk/Cross-tissue-TWAS-analyses-prioritize-the-17q21.31-locus-in-autism-spectrum-disorder/main/reproducibility/FUSION_GRCh38_Reproducibility.zip)): 810,699 bytes; 58 files.
+- Contents include recovered commands, diagnostic commands and parameters, software/script information, 1000 Genomes European-ancestry LD-reference provenance and GRCh38 coordinate checks, prediction-model P0/P1 checks, regional boundaries, selection diagnostics, numerical-instability records, and default versus common absolute-Z threshold (4.058183) comparisons.
+- After extraction, start with `README_EN.md` and `Major2_numerical_stability_notes_EN.md`. `SHA256_manifest.tsv` verifies the 57 other files. Global and locus-specific selection are distinguished; the unstable 10/19 locus-specific selections do not establish reliable independent signals.
+
+Recovered historical records are distinguished from diagnostic reruns generated on **16 October 2026**. FUSION diagnostic runs used **R 3.6.0**. The exact historical FUSION Git commit and complete independent historical stdout/stderr were not recovered. Bundled current local and instrumented scripts are identified by checksums; they are not claimed to be byte-identical historical source snapshots.
+
+Complete external GWAS data, prediction weights, QTL resources and LD genotypes are not bundled and must be obtained separately under the providers' access and licensing conditions. The full 2,281-record model-membership TSV and Supplementary Tables workbook are separate article supplements. Companion-workbook identifiers inside the ZIP describe the archive-preparation snapshot; use the final article supplements for the updated workbook.
+
+ZIP SHA256:
+
+```text
+f52792140f945eb3d124c367afabc166de5194f58fe3d864ad79de509106293b
+```
