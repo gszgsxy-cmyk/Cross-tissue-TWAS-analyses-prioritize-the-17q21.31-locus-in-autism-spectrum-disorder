@@ -1,0 +1,34 @@
+{
+  "Overlap_summary": [
+    {
+      "Study": "Huang",
+      "Overlap number": 10
+    },
+    {
+      "Study": "Matoba",
+      "Overlap number": 67
+    },
+    {
+      "Study": "Gandal",
+      "Overlap number": 22
+    }
+  ],
+  "Support_distribution": [
+    {
+      "Sources": 0,
+      "N_genes": 70
+    },
+    {
+      "Sources": 1,
+      "N_genes": 67
+    },
+    {
+      "Sources": 2,
+      "N_genes": 13
+    },
+    {
+      "Sources": 3,
+      "N_genes": 2
+    }
+  ]
+}

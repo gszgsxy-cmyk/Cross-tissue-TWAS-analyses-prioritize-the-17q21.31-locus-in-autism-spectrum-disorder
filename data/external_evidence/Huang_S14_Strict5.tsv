@@ -1,0 +1,6 @@
+Gene	Original_S1_row	Feature_type	Combined_meta_P	Overlap_152_gene_union
+POU3F2	6	expression	2.05008573403742e-07	False
+MSRA	8	splicing	5.66583845671304e-09	False
+MAPT	23	splicing	3.61580953433634e-07	True
+KIZ	32	expression	1.88100653572713e-07	True
+NKX2-2	34	expression	1.49000505242186e-10	False

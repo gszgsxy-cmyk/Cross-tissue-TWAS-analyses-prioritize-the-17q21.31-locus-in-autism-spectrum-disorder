@@ -1,0 +1,7 @@
+# Optional pure-plot/annotation dependencies. Main verifier uses standard library only.
+numpy
+pdfplumber
+pypdf
+reportlab
+Pillow
+pypdfium2

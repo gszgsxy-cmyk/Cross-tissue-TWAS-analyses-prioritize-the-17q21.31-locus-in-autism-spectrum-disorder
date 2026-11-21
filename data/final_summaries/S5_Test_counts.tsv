@@ -1,0 +1,15 @@
+Analysis	Scope	Valid tests / input units	FDR-significant / retained units	Genes represented	Multiple-testing / decision rule	Analytical role	Notes
+JTI	All 29 tissues	296168	264	64	BH across all 296,168 gene–tissue tests; FDR < 0.05	Primary all-tissue TWAS analysis	Gene–tissue prediction unit is the test unit.
+JTI	Brain (13 tissues)	115124	152	40	BH within the 13 brain tissues; FDR < 0.05	Exploratory brain-tissue TWAS analysis	21 genes were significant in both brain and non-brain JTI analyses.
+JTI	Non-brain (16 tissues)	181044	115	40	BH within the 16 non-brain tissues; FDR < 0.05	Exploratory non-brain TWAS analysis	21 genes were significant in both brain and non-brain JTI analyses.
+FUSION	All 29 tissues	167057	561	128	BH across all 167,057 valid gene–tissue tests; FDR < 0.05	Primary all-tissue TWAS analysis	Only valid FUSION tests entered the all-tissue correction.
+FUSION	Brain (13 tissues)	58236	263	76	BH within the 13 brain tissues; FDR < 0.05	Exploratory brain-tissue TWAS analysis	32 genes were significant in both brain and non-brain FUSION analyses.
+FUSION	Non-brain (16 tissues)	108821	295	85	BH within the 16 non-brain tissues; FDR < 0.05	Exploratory non-brain TWAS analysis	32 genes were significant in both brain and non-brain FUSION analyses.
+SMR/HEIDI	BrainMeta brain eQTL	16161	22	22	BH across all valid BrainMeta SMR tests; FDR < 0.05	Primary brain eQTL-SMR analysis	HEIDI was evaluated separately from SMR significance.
+SMR/HEIDI	Brain-mMeta brain mQTL	95633	21	N/A (CpG probes)	BH across all valid Brain-mMeta SMR tests; FDR < 0.05	Primary brain mQTL-SMR analysis	19 significant probes had no detected HEIDI heterogeneity and 2 had detected heterogeneity.
+SMR/HEIDI	Hatton EUR whole-blood mQTL	137310	30	N/A (CpG probes)	BH across all valid Hatton EUR SMR tests; FDR < 0.05	Complementary whole-blood mQTL-SMR analysis	21 of 30 significant probes were located within the 17q21.31 core region.
+SMR/HEIDI	Hannon fetal-brain mQTL	7610	5	N/A (CpG probes)	BH across all 7,610 valid SMR tests; FDR < 0.05	Developmental-brain sensitivity analysis	All five significant CpGs were located at 17q21.31.
+SMR/HEIDI	GTEx v8 non-brain eQTL (16 tissues)	59449	59	13	BH applied separately within each tissue; FDR < 0.05	Exploratory cross-tissue regulatory analysis	59 significant probe–tissue associations were observed in 12 tissues; 13 stable Ensembl genes (14 source labels).
+FUSION conditional/joint	17q21.31 core region	353	1	28	Input restricted to all-tissue FDR-significant regional FUSION models; joint-model retention	Primary regional refinement	The Brain Cerebellar Hemisphere MAPT-AS1 model was retained.
+FUSION conditional/joint	17q21.31 extended region (±1 Mb)	358	1	33	Input restricted to all-tissue FDR-significant regional FUSION models; joint-model retention	Sensitivity analysis	The same Brain Cerebellar Hemisphere MAPT-AS1 model was retained.
+Colocalization	BrainMeta–ASD gene-centric full-cis analysis	23	0		Strong evidence: PP.H4 ≥ 0.80 and PP.H4 > 3 × PP.H3	Regional shared-variant assessment	All 23 probes completed successfully; none met the prespecified strong-colocalization criterion.

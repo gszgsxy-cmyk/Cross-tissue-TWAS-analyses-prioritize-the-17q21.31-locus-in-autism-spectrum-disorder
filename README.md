@@ -1,64 +1,37 @@
 # ASD TWAS Analysis Code
 
-Study-specific code accompanying the ASD transcriptome-wide association study.
-Version: 2 October 2026.
+This repository contains the analysis scripts and selected reproducibility resources associated with the following publication:
 
-## 1. Scope
+Li X, Zhang Y, Li R, et al. Cross-tissue transcriptome-wide association analyses prioritize the 17q21.31 locus in autism spectrum disorder. *Progress in Neuro-Psychopharmacology & Biological Psychiatry*. [https://doi.org/10.1016/j.pnpbp.2026.112014](https://doi.org/10.1016/j.pnpbp.2026.112014).
 
-The collection documents TWAS result processing, regional conditional/joint analyses, SMR analyses, colocalization, external evidence integration, and selected visualizations.
+## Study overview
 
-## 2. Analysis modules
+This study integrated autism spectrum disorder (ASD) genome-wide association study (GWAS) summary statistics with genetically predicted gene expression across 29 tissues using Joint-Tissue Imputation (JTI) and FUSION. Follow-up analyses included summary-data-based Mendelian randomization (SMR) using brain and non-brain expression and methylation QTL resources, regional FUSION conditional/joint analysis, BrainMeta–ASD colocalization, and comparisons with previously reported genetic and molecular evidence for ASD.
 
-| Directory | Purpose |
-| --- | --- |
-| `scripts/02_fusion` | FUSION conditional/joint plotting and sensitivity-input preparation |
-| `scripts/03_twas_summary_figures` | TWAS result processing and exploratory visualization |
-| `scripts/04_smr_execution` | SMR execution scripts |
-| `scripts/05_nonbrain_rebuild` | Non-brain eQTL-SMR aggregation and tissue-specific FDR processing |
-| `scripts/06_coloc` | Final 23-probe BrainMeta full-cis colocalization |
-| `scripts/07_mqtl` | Hatton EUR and fetal-brain mQTL-SMR processing and enrichment |
-| `scripts/08_external_evidence` | External ASD evidence integration |
-| `scripts/09_figures` | Figure 4 panel preparation and assembly |
-| `third_party` | FUSION and MR-JTI source files and licenses |
-| `config` and `tools` | Path configuration template and helper |
+After Benjamini–Hochberg correction across all valid gene–tissue tests for each method, JTI identified 264 significant associations representing 64 genes, and FUSION identified 561 associations representing 128 genes. The two methods shared 40 genes, with 152 genes in their union. Regional conditional/joint analysis retained the Brain Cerebellar Hemisphere *MAPT-AS1* model in both the core and extended primary analyses. BrainMeta–ASD colocalization evaluated 23 probes; none met the prespecified criteria for strong colocalization.
 
-## 3. Analytical specifications
+## Repository contents
 
-- FUSION conditional/joint analyses use GRCh38/hg38: core interval chr17:45,414,716-46,836,265; extended interval chr17:44,414,716-47,836,265.
-- Brain mQTL regional summaries use GRCh37/hg19: chr17:43,492,082-44,913,631.
-- The final colocalization analysis comprises 23 probes, with one full-cis analysis per probe, using R 4.4.1 and coloc 5.2.3.
-- Hatton EUR significance is defined by genome-wide Benjamini-Hochberg correction across valid SMR tests. Cross-resource CpG comparisons retain the resource-specific significance definitions within the shared testable background.
-- Walker developmental-brain evidence provides developmental context and is not counted as ASD replication.
+- `scripts/` — Analysis and figure-preparation scripts for TWAS, SMR, colocalization, regional analyses, and external-evidence comparisons.
+- `data/` — Selected processed results, plotting inputs, annotations, and provenance records.
+- `docs/` — Analysis maps and reproducibility documentation.
+- `reproducibility/` — The regional FUSION reproducibility archive and its supporting records.
+- `third_party/` — Upstream FUSION and MR-JTI/PrediXcan-R code and associated license files.
 
-## 4. Input data and software
+The [figure and table mapping](Analysis_Figure_Table_Mapping.tsv) links the article's figures and tables to the corresponding repository materials. The [data guide](data/README.md) describes the processed results included in the repository.
 
-Required external inputs include GWAS summary statistics, expression prediction weights, LD reference panels, QTL resources, genomic annotations, and published supplementary datasets. These datasets must be supplied separately. Script-specific imports identify the R and Python dependencies; shell scripts require the corresponding analysis executables.
+## Data and reproducibility
 
-Update path placeholders and working directories before use. The configuration helper can create a separate copy using the roots specified in `config/paths.example.json`. Some scripts additionally require intermediate files and the original analysis directory structure.
+Detailed tabulated results are provided in the article's supplementary materials. This repository provides selected processed summaries, plotting inputs, and analysis scripts.
 
-## 5. Archive coverage
+Original GWAS summary statistics, expression-prediction weights, QTL datasets, and LD reference genotypes are obtained from their respective providers and are not redistributed in this repository. Access and use are subject to the conditions set by the original providers.
 
-The archive contains available analysis scripts and sequential processing records. The complete original JTI launch workflow and workbook-formatting steps are not included. Exploratory plotting scripts do not represent the latest author-prepared Figures 2 and 3. End-to-end execution has not been validated for this release.
+For module-specific input requirements and available execution and validation information, see the [analysis coverage and validation guide](docs/reproducibility/analysis_coverage_and_validation.md).
 
-## 6. Licensing
+The [FUSION regional reproducibility archive](reproducibility/FUSION_GRCh38_Reproducibility.zip) provides commands, coordinate checks, and diagnostic records for the regional conditional/joint analyses.
 
-FUSION and derived FUSION scripts retain the upstream GPLv3 license. MR-JTI/PrediXcan-R retains the upstream MIT license. License texts are provided in `third_party`. A collection-wide license has not been assigned.
+## Citation and licensing
 
+Please cite the article above and the original methods and data resources used in any work based on this repository.
 
-## 7. FUSION regional conditional/joint analysis reproducibility
-
-The combined archive supports the FUSION checks described in Reviewer 3 Major Comments 1 and 2 during manuscript revision, covering the core primary (353 models), extended primary (358), core all-testable (559), and extended all-testable (1,011) analyses.
-
-- [Combined reproducibility ZIP](reproducibility/FUSION_GRCh38_Reproducibility.zip) ([direct download](https://raw.githubusercontent.com/gszgsxy-cmyk/Cross-tissue-TWAS-analyses-prioritize-the-17q21.31-locus-in-autism-spectrum-disorder/main/reproducibility/FUSION_GRCh38_Reproducibility.zip)): 810,699 bytes; 58 files.
-- Contents include recovered commands, diagnostic commands and parameters, software/script information, 1000 Genomes European-ancestry LD-reference provenance and GRCh38 coordinate checks, prediction-model P0/P1 checks, regional boundaries, selection diagnostics, numerical-instability records, and default versus common absolute-Z threshold (4.058183) comparisons.
-- After extraction, start with `README_EN.md` and `Major2_numerical_stability_notes_EN.md`. `SHA256_manifest.tsv` verifies the 57 other files. Global and locus-specific selection are distinguished; the unstable 10/19 locus-specific selections do not establish reliable independent signals.
-
-Recovered historical records are distinguished from diagnostic reruns generated on **16 October 2026**. FUSION diagnostic runs used **R 3.6.0**. The exact historical FUSION Git commit and complete independent historical stdout/stderr were not recovered. Bundled current local and instrumented scripts are identified by checksums; they are not claimed to be byte-identical historical source snapshots.
-
-Complete external GWAS data, prediction weights, QTL resources and LD genotypes are not bundled and must be obtained separately under the providers' access and licensing conditions. The full 2,281-record model-membership TSV and Supplementary Tables workbook are separate article supplements. Companion-workbook identifiers inside the ZIP describe the archive-preparation snapshot; use the final article supplements for the updated workbook.
-
-ZIP SHA256:
-
-```text
-f52792140f945eb3d124c367afabc166de5194f58fe3d864ad79de509106293b
-```
+Third-party components retain their respective upstream licenses; see the corresponding license files in `third_party/`. No license is specified for the repository as a whole.
