@@ -1,0 +1,17 @@
+ring	tissue	label
+1	Adipose_Subcutaneous	Adipose subcutaneous
+2	Adipose_Visceral_Omentum	Adipose visceral
+3	Colon_Sigmoid	Colon sigmoid
+4	Colon_Transverse	Colon transverse
+5	Esophagus_Gastroesophageal_Junction	Esophagus GE junction
+6	Esophagus_Mucosa	Esophagus mucosa
+7	Esophagus_Muscularis	Esophagus muscularis
+8	Minor_Salivary_Gland	Minor salivary gland
+9	Pancreas	Pancreas
+10	Prostate	Prostate
+11	Small_Intestine_Terminal_Ileum	Small intestine
+12	Stomach	Stomach
+13	Testis	Testis
+14	Uterus	Uterus
+15	Vagina	Vagina
+16	Whole_Blood	Whole blood

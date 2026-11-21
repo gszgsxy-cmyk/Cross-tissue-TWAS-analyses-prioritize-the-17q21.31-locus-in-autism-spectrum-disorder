@@ -1,0 +1,67 @@
+[
+  {
+    "file": "data/final_summaries/S5_Test_counts.tsv",
+    "source_workbook_sha256": "a92841ea4e8c7b91ca1e0b0db2b4681f291e4d2f16d9a26c2308de7267889bac",
+    "source_sheet": "S5_Test_counts",
+    "header_row": 4,
+    "data_rows": 14
+  },
+  {
+    "file": "data/final_summaries/S6_Integrated.tsv",
+    "source_workbook_sha256": "a92841ea4e8c7b91ca1e0b0db2b4681f291e4d2f16d9a26c2308de7267889bac",
+    "source_sheet": "S6_Integrated",
+    "header_row": 4,
+    "data_rows": 152
+  },
+  {
+    "file": "data/final_summaries/S9C_Sensitivity.tsv",
+    "source_workbook_sha256": "a92841ea4e8c7b91ca1e0b0db2b4681f291e4d2f16d9a26c2308de7267889bac",
+    "source_sheet": "S9C_Sensitivity",
+    "header_row": 4,
+    "data_rows": 39
+  },
+  {
+    "file": "data/final_summaries/S10A_Coloc_primary.tsv",
+    "source_workbook_sha256": "a92841ea4e8c7b91ca1e0b0db2b4681f291e4d2f16d9a26c2308de7267889bac",
+    "source_sheet": "S10A_Coloc_primary",
+    "header_row": 4,
+    "data_rows": 23
+  },
+  {
+    "file": "data/final_summaries/S11D_Tissue_summary.tsv",
+    "source_workbook_sha256": "a92841ea4e8c7b91ca1e0b0db2b4681f291e4d2f16d9a26c2308de7267889bac",
+    "source_sheet": "S11D_Tissue_summary",
+    "header_row": 4,
+    "data_rows": 16
+  },
+  {
+    "file": "data/external_evidence/S13A_Molecular_convergence.tsv",
+    "source_workbook_sha256": "a92841ea4e8c7b91ca1e0b0db2b4681f291e4d2f16d9a26c2308de7267889bac",
+    "source_sheet": "S13A_Molecular_convergence",
+    "header_row": 4,
+    "data_rows": 152
+  },
+  {
+    "file": "data/external_evidence/S13B_Evidence_details.tsv",
+    "source_workbook_sha256": "a92841ea4e8c7b91ca1e0b0db2b4681f291e4d2f16d9a26c2308de7267889bac",
+    "source_sheet": "S13B_Evidence_details",
+    "header_row": 4,
+    "data_rows": 152
+  },
+  {
+    "file": "data/external_evidence/Huang_S14_Source_Trace.tsv",
+    "source_workbook_sha256": "a92841ea4e8c7b91ca1e0b0db2b4681f291e4d2f16d9a26c2308de7267889bac",
+    "source_sheet": "S14_Huang_comparison",
+    "header_row": 6,
+    "data_rows": 22,
+    "excel_rows": "7:28"
+  },
+  {
+    "file": "data/external_evidence/Huang_S14_Strict5.tsv",
+    "source_workbook_sha256": "a92841ea4e8c7b91ca1e0b0db2b4681f291e4d2f16d9a26c2308de7267889bac",
+    "source_sheet": "S14_Huang_comparison",
+    "header_row": 34,
+    "data_rows": 5,
+    "excel_rows": "35:39"
+  }
+]

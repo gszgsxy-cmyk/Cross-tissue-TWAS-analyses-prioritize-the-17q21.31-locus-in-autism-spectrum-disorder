@@ -1,0 +1,40 @@
+Analysis	Region	Input_definition	Input_models	Unique_genes	Globally retained model	Result	FUSION_generated_region_GRCh38	Regional_groups
+Core	GRCh38/hg38 chr17:45,414,716–46,836,265	Primary all-tissue FDR < 0.05	353	28	MAPT-AS1 / ENSG00000264589.2 / Brain Cerebellar Hemisphere	MAPT-AS1 retained in both global and locus-specific selection.	chr17:44,834,540–47,428,979	1
+Extended	GRCh38/hg38 chr17:44,414,716–47,836,265	Primary all-tissue FDR < 0.05	358	33	MAPT-AS1 / ENSG00000264589.2 / Brain Cerebellar Hemisphere	MAPT-AS1 retained in both global and locus-specific selection.	chr17:44,236,113–47,606,009	1
+Core all-testable sensitivity	GRCh38/hg38 chr17:45,414,716–46,836,265	All available regional FUSION models	559	32	MAPT-AS1 / ENSG00000264589.2 / Brain Cerebellar Hemisphere	Same global MAPT-AS1 retention; locus-specific feature selection and SNP conditioning were unstable.	chr17:44,834,540–47,428,979	1
+Extended all-testable sensitivity	GRCh38/hg38 chr17:44,414,716–47,836,265	All available regional FUSION models	1011	82	MAPT-AS1 / ENSG00000264589.2 / Brain Cerebellar Hemisphere	Same global MAPT-AS1 retention; locus-specific feature selection and SNP conditioning were unstable.	chr17:43,906,472–48,430,072	1
+All coordinates are GRCh38. Region denotes the predefined model-inclusion interval. FUSION-generated boundaries use a 100-kb buffer and may differ from the predefined interval. Complete membership is provided in Supplementary_Data_1_FUSION_17q21.31_model_membership.tsv. The Globally retained model column reports global selection; the 559- and 1,011-model regional selection results were numerically unstable and do not establish independent signals.								
+Default and common-threshold diagnostic comparison								
+Analysis	Threshold setting	Absolute Z threshold	Global retained (n)	Locus-specific selected (n)	Globally retained model	Numerical stability		
+Core primary (353 models)	Default	3.80528140728608	1	1	MAPT-AS1 / Brain Cerebellar Hemisphere	No corresponding instability observed		
+Extended primary (358 models)	Default	3.80876112046778	1	1	MAPT-AS1 / Brain Cerebellar Hemisphere	No corresponding instability observed		
+Core all-testable (559 models)	Default	3.91757172039658	1	10	MAPT-AS1 / Brain Cerebellar Hemisphere	Locus-specific feature selection and SNP conditioning unstable		
+Extended all-testable (1,011 models)	Default	4.05818311062166	1	19	MAPT-AS1 / Brain Cerebellar Hemisphere	Locus-specific feature selection and SNP conditioning unstable		
+Core primary (353 models)	Common (fixed)	4.058183	1	1	MAPT-AS1 / Brain Cerebellar Hemisphere	No corresponding instability observed		
+Extended primary (358 models)	Common (fixed)	4.058183	1	1	MAPT-AS1 / Brain Cerebellar Hemisphere	No corresponding instability observed		
+Core all-testable (559 models)	Common (fixed)	4.058183	1	10	MAPT-AS1 / Brain Cerebellar Hemisphere	Locus-specific feature selection and SNP conditioning unstable		
+Extended all-testable (1,011 models)	Common (fixed)	4.058183	1	19	MAPT-AS1 / Brain Cerebellar Hemisphere	Locus-specific feature selection and SNP conditioning unstable		
+Thresholds are absolute Z values. Default thresholds depend on the number of input models M (two-sided P < 0.05/M). The common threshold (4.058183) gave the same retained sets and did not resolve instability. Locus-specific counts of 10 and 19 are diagnostic selections, not validated independent signals. All eight runs are diagnostic runs from 16 October 2026.								
+Locus-specific diagnostic model membership								
+Gene / transcript	FUSION feature ID	GTEx v8 tissue	Core 559 selected	Extended 1,011 selected	Global retention			
+MAPT-AS1	ENSG00000264589.2	Brain_Cerebellar_Hemisphere	Yes	Yes	Retained in both analyses			
+CRHR1	ENSG00000120088.14	Brain_Caudate_basal_ganglia	Yes	Yes	Not globally retained			
+CRHR1	ENSG00000120088.14	Brain_Nucleus_accumbens_basal_ganglia	Yes	Yes	Not globally retained			
+KANSL1	ENSG00000120071.13	Esophagus_Muscularis	Yes	Yes	Not globally retained			
+KANSL1	ENSG00000120071.13	Uterus	Yes	Yes	Not globally retained			
+PLEKHM1	ENSG00000225190.10	Brain_Cerebellar_Hemisphere	Yes	Yes	Not globally retained			
+RP11-798G7.8	ENSG00000266918.1	Esophagus_Muscularis	Yes	Yes	Not globally retained			
+RP11-798G7.8	ENSG00000266918.1	Uterus	Yes	Yes	Not globally retained			
+WNT3	ENSG00000108379.9	Adipose_Subcutaneous	Yes	Yes	Not globally retained			
+WNT3	ENSG00000108379.9	Esophagus_Mucosa	Yes	No	Not globally retained			
+ACBD4	ENSG00000181513.14	Minor_Salivary_Gland	No	Yes	Not globally retained			
+ADAM11	ENSG00000073670.13	Esophagus_Mucosa	No	Yes	Not globally retained			
+CTD-2020K17.3	ENSG00000233175.2	Brain_Hypothalamus	No	Yes	Not globally retained			
+CTD-2020K17.3	ENSG00000233175.2	Esophagus_Mucosa	No	Yes	Not globally retained			
+DCAKD	ENSG00000172992.11	Brain_Hypothalamus	No	Yes	Not globally retained			
+EFTUD2	ENSG00000108883.12	Brain_Cerebellar_Hemisphere	No	Yes	Not globally retained			
+EFTUD2	ENSG00000108883.12	Esophagus_Mucosa	No	Yes	Not globally retained			
+GJC1	ENSG00000182963.9	Colon_Transverse	No	Yes	Not globally retained			
+NMT1	ENSG00000136448.11	Small_Intestine_Terminal_Ileum	No	Yes	Not globally retained			
+SPATA32	ENSG00000184361.12	Testis	No	Yes	Not globally retained			
+Yes indicates locus-specific selection in the existing diagnostic runs. Membership was identical under default and common Z thresholds. Core: 10 models / 6 genes; extended: 19 models / 14 genes. These selections were numerically unstable and are not validated independent signals. Only MAPT-AS1 / Brain Cerebellar Hemisphere was globally retained in both analyses.								
