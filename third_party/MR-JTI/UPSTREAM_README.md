@@ -1,10 +1,10 @@
+This is an adapted copy of the [official MR-JTI upstream README](https://github.com/gamazonlab/MR-JTI#readme), with the consultation contact section shortened.
+
 ## MR-JTI [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/gamazonlab/MR-JTI/blob/master/LICENSE)  
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4164740.svg)](https://doi.org/10.5281/zenodo.4164740)
 
-For questions:  
-Dan Zhou <zdangm@gmail.com>  
-Eric R. Gamazon <ericgamazon@gmail.com>  
+For questions about MR-JTI, please refer to the [official upstream repository](https://github.com/gamazonlab/MR-JTI#readme).
 
 ## Cite MR-JTI
 Zhou, Dan, et al. "A unified framework for joint-tissue transcriptome-wide association and Mendelian randomization analysis." Nature Genetics (2020). (https://www.nature.com/articles/s41588-020-0706-2)  
