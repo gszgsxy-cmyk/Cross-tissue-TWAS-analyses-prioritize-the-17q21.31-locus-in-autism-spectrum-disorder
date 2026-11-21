@@ -1,14 +1,8 @@
 # ASD TWAS Analysis Code
 
-Analysis scripts and selected reproducibility resources accompanying:
+This repository contains the analysis scripts and selected reproducibility resources associated with the following publication:
 
-**Cross-tissue transcriptome-wide association analyses prioritize the 17q21.31 locus in autism spectrum disorder.**
-
-Xiaoyang Li, Yuan Zhang, Ruofei Li, et al.
-
-*Progress in Neuro-Psychopharmacology & Biological Psychiatry.*
-
-[https://doi.org/10.1016/j.pnpbp.2026.112014](https://doi.org/10.1016/j.pnpbp.2026.112014)
+Li X, Zhang Y, Li R, et al. Cross-tissue transcriptome-wide association analyses prioritize the 17q21.31 locus in autism spectrum disorder. *Progress in Neuro-Psychopharmacology & Biological Psychiatry*. [https://doi.org/10.1016/j.pnpbp.2026.112014](https://doi.org/10.1016/j.pnpbp.2026.112014).
 
 ## Study overview
 
@@ -24,7 +18,7 @@ After Benjamini–Hochberg correction across all valid gene–tissue tests for e
 - `reproducibility/` — The regional FUSION reproducibility archive and its supporting records.
 - `third_party/` — Upstream FUSION and MR-JTI/PrediXcan-R code and associated license files.
 
-The [figure and table mapping](Analysis_Figure_Table_Mapping.tsv) links article items to the corresponding repository materials. The [data guide](data/README.md) describes the processed results included in the repository.
+The [figure and table mapping](Analysis_Figure_Table_Mapping.tsv) links the article's figures and tables to the corresponding repository materials. The [data guide](data/README.md) describes the processed results included in the repository.
 
 ## Data and reproducibility
 
@@ -40,4 +34,4 @@ The [FUSION regional reproducibility archive](reproducibility/FUSION_GRCh38_Repr
 
 Please cite the article above and the original methods and data resources used in any work based on this repository.
 
-Third-party software retains its respective upstream licenses; see the license files under `third_party/`. No repository-wide license is provided.
+Third-party components retain their respective upstream licenses; see the corresponding license files in `third_party/`. No license is specified for the repository as a whole.
