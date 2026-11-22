@@ -16,7 +16,7 @@ After Benjamini–Hochberg correction across all valid gene–tissue tests for e
 - `data/` — Selected processed results, plotting inputs, annotations, and provenance records.
 - `docs/` — Analysis maps and reproducibility documentation.
 - `reproducibility/` — The regional FUSION reproducibility archive and its supporting records.
-- `third_party/` — Upstream FUSION and MR-JTI/PrediXcan-R code and associated license files.
+- `third_party/` — Upstream FUSION code and selected MR-JTI/PrediXcan-R files, with their associated license files.
 
 The [figure and table mapping](Analysis_Figure_Table_Mapping.tsv) links the article's figures and tables to the corresponding repository materials. The [data guide](data/README.md) describes the processed results included in the repository.
 

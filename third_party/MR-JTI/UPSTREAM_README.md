@@ -1,4 +1,9 @@
-This is an adapted copy of the [official MR-JTI upstream README](https://github.com/gamazonlab/MR-JTI#readme), with the consultation contact section shortened.
+This is an adapted copy of the [official MR-JTI upstream README](https://github.com/gamazonlab/MR-JTI#readme).
+
+This repository includes selected upstream MR-JTI/PrediXcan-R files, including
+`run.sh` and `predixcan_r.r`. The tutorial scripts `JTI.r` and `MR-JTI.r` are
+not included. See the [official MR-JTI repository](https://github.com/gamazonlab/MR-JTI)
+for the complete software and documentation.
 
 ## MR-JTI [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/gamazonlab/MR-JTI/blob/master/LICENSE)  
 
@@ -113,7 +118,7 @@ Reference for S-PrediXcan: Barbeira, Alvaro N., et al. "Exploring the phenotypic
 ## MR-JTI TUTORIAL
 
 Input file format  
-The input file contains six elements, as listed below. (The headers are required.) 
+The input file contains eight fields, as listed below. (The headers are required.)
 
 rsid: rsid. SNPs need to be pruned before runing MR-JTI. 
 effect_allele:  The effect allele. Harmonization needs to be performed to make sure the effect alleles of eQTL and GWAS are correctly aligned.  
@@ -136,7 +141,7 @@ Rscript ${script_dir}/MR-JTI.r \
 
 ```
 
-Options for JTI model training
+Options for MR-JTI analysis
 ```
 --df_path Path to dataframe of GWAS and eQTL summary statistics (required)  
 --n_folds Number of cross-validation folds. Default=5.  
