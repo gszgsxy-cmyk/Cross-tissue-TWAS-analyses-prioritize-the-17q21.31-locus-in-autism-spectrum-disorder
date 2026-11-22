@@ -132,8 +132,7 @@ gene–tissue model membership** combines:
   source order.
 
 The full source TSV is retained in the authors' local project records, not bundled
-in this repository. Its SHA256 is
-`a2d782898100e701850691964c1e5a7c93ad6ecfc2d91159d2ce3ad6d52577b9`.
+in this repository.
 The complete records are now in the article workbook's S9C Part B. The
 repository's [S9C TSV](../../data/final_summaries/S9C_Sensitivity.tsv) preserves
 the pre-existing Part A export. The ZIP's model-coordinate QC is a coordinate
@@ -142,5 +141,4 @@ subset, not the full 32-field member table.
 The ZIP's original README, column dictionary and companion filenames capture
 the earlier attachment organization. Their references to a separate member-data
 attachment identify that archival snapshot; the current location is S9C Part B.
-The unchanged archive is 810,699 bytes, with SHA256
-`f52792140f945eb3d124c367afabc166de5194f58fe3d864ad79de509106293b`.
+The unchanged archive is 810,699 bytes.

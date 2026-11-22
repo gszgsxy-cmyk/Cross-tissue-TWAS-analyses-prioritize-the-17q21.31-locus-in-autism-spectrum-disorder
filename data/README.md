@@ -26,8 +26,7 @@ field definitions are retained.
 S9C Part B contains core_353 (353), extended_358 (358), core_559 (559) and
 extended_1011 (1,011) records, in source order. The original
 `Supplementary_Data_1_FUSION_17q21.31_model_membership.tsv` is retained in the
-authors' project records and is not bundled here. Its SHA256 is
-`a2d782898100e701850691964c1e5a7c93ad6ecfc2d91159d2ce3ad6d52577b9`.
+authors' project records and is not bundled here.
 The [regional notes](../docs/reproducibility/FUSION_regional_analysis_notes.md)
 explain the archive's earlier companion-file labels.
 
