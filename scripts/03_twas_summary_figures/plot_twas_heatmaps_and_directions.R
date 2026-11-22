@@ -1,3 +1,10 @@
+# 绘制跨组织TWAS矩形热图及跨方法方向汇总图。
+# 使用JTI/FUSION结果、共享基因表及既有跨方法方向汇总对象。
+# 组织顺序为13种脑组织（brain tissues）和16种非脑组织（non-brain tissues）。
+# 星号沿用本历史脚本的组织分组BH-FDR < 0.05定义。
+# 保留历史B/C/D图号和各版独立导出过程，不自动拼接完整图件。
+
+# 首段使用既有R会话中的jti_all、jti_shared_genes等对象。
 jti_heatmap21 <- jti_all[
   jti_all$ENSEMBL_ID %in% jti_shared_genes,
   c(
@@ -123,7 +130,7 @@ sort(
   )
 )
 
-# 开始画图 --------------------------------------------------------------------
+# 配置组织显示标签及热图所需的因子顺序。
 
 tissue_label_map <- c(
   
@@ -243,6 +250,7 @@ jti_heatmap21_full$DISPLAY_SYMBOL <-
     jti_heatmap21_full$DISPLAY_SYMBOL,
     levels = rev(gene_order)
   )
+# 保留历史会话中的SIG_GROUP对象检查；独立执行此处需该对象已定义。
 SIG_GROUP
 
 
@@ -284,7 +292,7 @@ z_limit <- ceiling(
 
 z_limit
 
-# 画图 ----------------------------------------------------------------------
+# 绘制JTI矩形热图，保留本阶段原有颜色范围及分组FDR星号。
 
 
 library(ggplot2)
@@ -405,7 +413,7 @@ p_jti21 <- ggplot(
   )
 p_jti21
 
-# 保存 ----------------------------------------------------------------------
+# 导出本阶段JTI热图及完整统计表，保留原有文件名和绘图尺寸。
 
 ggsave(
   filename = file.path(
@@ -441,7 +449,7 @@ write.table(
   row.names = FALSE
 )
 
-# 画fusion的 ----------------------------------------------------------------
+# 构建FUSION基因–组织网格并绘制对应矩形热图。
 
 fusion_heatmap32$TISSUE <- sub(
   "^GTExv8\\.ALL\\.",
@@ -759,7 +767,7 @@ write.table(
   row.names = FALSE
 )
 
-# 11合并 --------------------------------------------------------------------
+# 整合11个跨方法共享基因的方向及分组显著特征数量。
 
 cross_summary_long <- rbind(
   
@@ -953,7 +961,7 @@ p_cross11 <- p_cross11 +
 
 p_cross11
 
-# 保存 ----------------------------------------------------------------------
+# 导出跨方法方向汇总图及绘图数据表。
 
 
 ggsave(
@@ -991,7 +999,7 @@ write.table(
 )
 
 
-# 改好看点 --------------------------------------------------------------------
+# 保留方向汇总图第二版的分面、标签及文字颜色设置。
 cross_summary_long$COUNT_LABEL <- paste0(
   cross_summary_long$N_POSITIVE,
   "/",
@@ -1211,29 +1219,10 @@ ggsave(
   compression = "lzw"
 )
 
-# 重新读一下数据 -----------------------------------------------------------------
+# 重新读取既有结果文件并重建热图数据。
 
 # ============================================================
-# 0. Paths
-# ============================================================
-
-jti_dir <- paste0(
-  "__USER_HOME__/Desktop/TWAS/",
-  "MR-JTI-master/model_training/predixcan/src"
-)
-
-fusion_dir <- paste0(
-  "__USER_HOME__/Desktop/TWAS/FUSION/",
-  "fusion_twas-master"
-)
-
-
-# ============================================================
-# 1. Check formal files
-# ============================================================
-
-# ============================================================
-# 0. Paths
+# 配置JTI与FUSION历史项目路径。
 # ============================================================
 
 jti_dir <- paste0(
@@ -1248,7 +1237,26 @@ fusion_dir <- paste0(
 
 
 # ============================================================
-# 1. Check formal files
+# 后续保留历史记录中的路径重设步骤。
+# ============================================================
+
+# ============================================================
+# 按原有记录再次设置JTI与FUSION历史项目路径。
+# ============================================================
+
+jti_dir <- paste0(
+  "__USER_HOME__/Desktop/TWAS/",
+  "MR-JTI-master/model_training/predixcan/src"
+)
+
+fusion_dir <- paste0(
+  "__USER_HOME__/Desktop/TWAS/FUSION/",
+  "fusion_twas-master"
+)
+
+
+# ============================================================
+# 核查所需JTI、FUSION及跨方法汇总文件是否存在。
 # ============================================================
 
 core_files <- c(
@@ -1299,7 +1307,7 @@ stopifnot(
 )
 
 # ============================================================
-# 2. Reload formal datasets
+# 读取已保存的结果文件；本段不重新执行TWAS关联分析。
 # ============================================================
 
 jti_all <- read.delim(
@@ -1370,7 +1378,7 @@ cat(
   "\n"
 )
 # ============================================================
-# 3. Tissue order
+# 保留13种脑组织和16种非脑组织的既定顺序。
 # ============================================================
 
 brain_tissues <- c(
@@ -1425,7 +1433,7 @@ cat(
   "\n"
 )
 
-##########3
+# 配置29种组织的显示标签映射。
 
 tissue_label_map <- c(
   
@@ -1523,7 +1531,7 @@ tissue_label_order <- unname(
   ]
 )
 # ============================================================
-# 4. Rebuild JTI 21-gene heatmap dataset
+# 重建JTI 21基因热图网格，沿用既有组织分组FDR标记。
 # ============================================================
 
 jti_heatmap21 <- jti_all[
@@ -1632,7 +1640,7 @@ jti_heatmap21_full$DISPLAY_SYMBOL <- factor(
 )
 
 # ============================================================
-# 5. Rebuild FUSION 32-gene heatmap dataset
+# 重建FUSION 32基因热图网格，沿用既有组织分组FDR标记。
 # ============================================================
 
 fusion_heatmap32 <- fusion_all[
@@ -1675,7 +1683,7 @@ fusion_heatmap32$SIG_GROUP <- (
   !is.na(fusion_heatmap32$FDR_GROUP) &
     fusion_heatmap32$FDR_GROUP < 0.05
 )
-###
+# 核查FUSION基因–组织组合是否存在重复记录。
 fusion_dup_qc <- table(
   paste(
     fusion_heatmap32$ENSEMBL_ID,
@@ -1689,7 +1697,7 @@ cat(
   sum(fusion_dup_qc > 1),
   "\n"
 )
-###
+# 建立FUSION共享基因列表及完整组织网格。
 fusion_gene_table <- unique(
   fusion_shared[
     ,
@@ -1719,7 +1727,7 @@ fusion_heatmap32_full <- merge(
   sort = FALSE
 )
 
-########
+# 连接基因显示名称，并设置组织分组及显示顺序。
 fusion_symbol_map <- setNames(
   fusion_gene_table$GENE_SYMBOL_GENCODE,
   fusion_gene_table$ENSEMBL_ID
@@ -1787,7 +1795,7 @@ fusion_heatmap32_full$DISPLAY_SYMBOL <- factor(
 )
 
 # ============================================================
-# 6. Shared Z-score range
+# 按JTI与FUSION数据计算本阶段共享Z值显示范围。
 # ============================================================
 
 max_abs_z <- max(
@@ -1813,7 +1821,7 @@ cat(
 )
 
 # ============================================================
-# 7. Figure data QC
+# 汇总热图网格规模、可用及缺失Z值和显著单元格数量。
 # ============================================================
 
 cat(
@@ -1934,6 +1942,7 @@ cat(
   ),
   "\n"
 )
+# 保存既有绘图数据对象和组织顺序至原RData文件。
 save(
   jti_heatmap21_full,
   fusion_heatmap32_full,
@@ -1951,7 +1960,7 @@ save(
   )
 )
 
-# 继续跑 ---------------------------------------------------------------------
+# 查看JTI热图网格及显著性标记的描述性统计。
 
 
 cat("Genes:", length(unique(jti_heatmap21_full$ENSEMBL_ID)), "\n")
@@ -1962,7 +1971,7 @@ cat("Missing models:", sum(is.na(jti_heatmap21_full$zscore)), "\n")
 cat("Significant cells:", sum(jti_heatmap21_full$SIG_GROUP, na.rm = TRUE), "\n")
 
 # ============================================================
-# Final strict QC before plotting
+# 按原有断言核查绘图数据；保留全部既有预期计数。
 # ============================================================
 
 expected_cross11 <- c(
@@ -1981,7 +1990,7 @@ expected_cross11 <- c(
 
 stopifnot(
   
-  # JTI
+  # JTI基因、组织、网格及分组显著单元格计数。
   length(unique(jti_heatmap21_full$ENSEMBL_ID)) == 21,
   length(unique(jti_heatmap21_full$TISSUE)) == 29,
   nrow(jti_heatmap21_full) == 609,
@@ -1989,7 +1998,7 @@ stopifnot(
   sum(is.na(jti_heatmap21_full$zscore)) == 274,
   sum(jti_heatmap21_full$SIG_GROUP, na.rm = TRUE) == 188,
   
-  # FUSION
+  # FUSION基因、组织、网格及分组显著单元格计数。
   length(unique(fusion_heatmap32_full$ENSEMBL_ID)) == 32,
   length(unique(fusion_heatmap32_full$TISSUE)) == 29,
   nrow(fusion_heatmap32_full) == 928,
@@ -1997,13 +2006,13 @@ stopifnot(
   sum(is.na(fusion_heatmap32_full$TWAS.Z)) == 389,
   sum(fusion_heatmap32_full$SIG_GROUP, na.rm = TRUE) == 389,
   
-  # Tissue structure
+  # 组织分组结构及显示标签完整性。
   length(brain_tissues) == 13,
   length(nonbrain_tissues) == 16,
   sum(is.na(jti_heatmap21_full$TISSUE_LABEL)) == 0,
   sum(is.na(fusion_heatmap32_full$TISSUE_LABEL)) == 0,
   
-  # Cross-method
+  # 跨方法共享基因集合。
   length(cross_shared_ids) == 11,
   setequal(
     cross_shared_ids,
@@ -2017,20 +2026,20 @@ cat(
 
 
 
-# 核对数据范围 ------------------------------------------------------------------
-# JTI实际进入热图的Z值范围
+# 查看JTI与FUSION进入热图的Z值范围。
+# 汇总JTI热图数据的Z值范围。
 jti_z_range <- range(
   jti_heatmap21_full$zscore,
   na.rm = TRUE
 )
 
-# FUSION实际进入热图的Z值范围
+# 汇总FUSION热图数据的Z值范围。
 fusion_z_range <- range(
   fusion_heatmap32_full$TWAS.Z,
   na.rm = TRUE
 )
 
-# 两张图合并后的真实总体范围
+# 汇总两种方法热图数据的合并Z值范围。
 shared_z_range <- range(
   c(
     jti_heatmap21_full$zscore,
@@ -2063,7 +2072,7 @@ cat(
   "\n"
 )
 
-# JTI minimum
+# 查看JTI最小Z值对应的基因–组织记录。
 jti_heatmap21_full[
   which.min(jti_heatmap21_full$zscore),
   c(
@@ -2074,7 +2083,7 @@ jti_heatmap21_full[
   )
 ]
 
-# JTI maximum
+# 查看JTI最大Z值对应的基因–组织记录。
 jti_heatmap21_full[
   which.max(jti_heatmap21_full$zscore),
   c(
@@ -2085,7 +2094,7 @@ jti_heatmap21_full[
   )
 ]
 
-# FUSION minimum
+# 查看FUSION最小Z值对应的基因–组织记录。
 fusion_heatmap32_full[
   which.min(fusion_heatmap32_full$TWAS.Z),
   c(
@@ -2096,7 +2105,7 @@ fusion_heatmap32_full[
   )
 ]
 
-# FUSION maximum
+# 查看FUSION最大Z值对应的基因–组织记录。
 fusion_heatmap32_full[
   which.max(fusion_heatmap32_full$TWAS.Z),
   c(
@@ -2107,7 +2116,7 @@ fusion_heatmap32_full[
   )
 ]
 
-# 重新绘图 --------------------------------------------------------------------
+# 保留历史B/C面板的固定Z值范围及原有绘图参数。
 
 library(ggplot2)
 library(grid)
@@ -2401,7 +2410,7 @@ ggsave(
 )
 
 
-# D -----------------------------------------------------------------------
+# 绘制历史D面板的跨方法方向汇总，保留原有图号及输出文件名。
 
 
 classify_direction <- function(pos, neg) {
