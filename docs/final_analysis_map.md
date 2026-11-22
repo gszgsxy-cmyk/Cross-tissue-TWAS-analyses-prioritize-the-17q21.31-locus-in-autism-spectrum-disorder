@@ -27,7 +27,7 @@ Historical analysis scripts retain their original input requirements.
 Figures 2/3 A-B use brain/non-brain-specific FDR; D uses all-29-tissue FDR.
 The shared plotted Z range is -6.1 to 6.1. Inputs and factor/order files are preserved.
 Current module and figure coverage is in Analysis_Figure_Table_Mapping.tsv.
-The S2 aligned-layout module is explicitly candidate until adoption is confirmed.
+The author confirmed on 2026-11-22 that the revised S2 layout was used in the final Supplementary Figures submitted to the journal. The historical directory and script names are retained.
 
 The original FUSION reproducibility ZIP is preserved byte for byte, including
 historical Major1/2 filenames and companion-workbook identifiers. Those identifiers

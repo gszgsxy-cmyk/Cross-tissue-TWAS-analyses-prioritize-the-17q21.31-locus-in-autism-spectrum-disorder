@@ -24,6 +24,7 @@ def main():
         except Exception as e:checks.append({'check':name,'status':'FAIL','detail':f'{type(e).__name__}: {e}'})
     def manifest():
         m=rows(ROOT/'File_Manifest.tsv')
+        require(len(m)==len({r['Path'] for r in m}),'Duplicate manifest paths')
         for r in m:
             p=(ROOT/r['Path']).resolve();require(p.is_relative_to(ROOT),'Unsafe manifest path')
             require(p.is_file(),r['Path']+' missing')
@@ -116,7 +117,8 @@ def main():
             for r in v:require(truth(r['SIG_ALL'])==(number(r['FDR_ALL']) is not None and number(r['FDR_ALL'])<.05),name+' all-tissue star')
         return out
     run('Plot inputs and distinct FDR definitions',grids)
-    checks.append({'check':'Reproduction boundary','status':'WARNING','detail':'No TWAS/SMR/FUSION/coloc analysis or new drawing was run. Archived-source scripts need external inputs. S2 revised-layout adoption remains unconfirmed.'})
+    checks.append({'check':'S2 layout status','status':'INFO','detail':'Author confirmed on 2026-11-22 that the revised layout was used in the final Supplementary Figures submitted to the journal.'})
+    checks.append({'check':'Reproduction boundary','status':'WARNING','detail':'Checks read bundled inputs and saved results. Association analyses and figure rendering are not executed; historical workflows require external inputs.'})
     result={'status':'FAIL' if any(c['status']=='FAIL' for c in checks) else 'PASS_WITH_WARNINGS','checks':checks,'scientific_analyses_executed':False}
     if args.report:
         args.report.parent.mkdir(parents=True,exist_ok=True);args.report.write_text(json.dumps(result,indent=2),encoding='utf-8')
