@@ -9,7 +9,7 @@ From this directory:
 ```sh
 python annotate_boundaries.py --check-only
 python annotate_boundaries.py --output-dir output
-python annotate_boundaries.py --output-dir output-raster --raster
+python annotate_boundaries.py --output-dir output/raster --raster
 ```
 
 Dependencies are `numpy`, `pdfplumber`, `pypdf`, `reportlab` and `Pillow`;

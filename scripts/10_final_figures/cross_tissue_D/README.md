@@ -5,7 +5,7 @@ at 13 pt. From this directory, with `ggplot2`, `grid` and `scales` available:
 
 ```sh
 Rscript plot_D_larger_axis_only.R
-Rscript plot_D_larger_axis_only.R results
+Rscript plot_D_larger_axis_only.R output/custom
 ```
 
 The default output directory is `output/`. Inputs in `data/` are

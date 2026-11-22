@@ -46,6 +46,8 @@ An existing PDF is not overwritten. The entry point produces PDF only.
 
 ## Bundled-input checks
 
+Save generated plot files under an `output/` directory or outside the repository.
+
 From the repository root:
 
 ```sh
