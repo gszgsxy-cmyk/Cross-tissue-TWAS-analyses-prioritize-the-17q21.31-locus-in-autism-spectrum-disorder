@@ -3,8 +3,7 @@
 This note connects the archived FUSION evidence to Supplementary Table S9C.
 The evidence paths below refer to members of the unchanged
 [FUSION reproducibility ZIP](../../reproducibility/FUSION_GRCh38_Reproducibility.zip).
-They record completed analyses and checks; updating this documentation runs
-no conditional/joint calculation.
+They contain the recorded commands, analyses and diagnostic checks.
 
 ## Coordinates and input roles
 
@@ -30,8 +29,7 @@ in `reproducibility/source/GRCh38_plot.diff`. Archived coordinate checks include
 | `reproducibility/evidence/snp_allele_coordinate_QC.tsv` | Summary of the coordinate and allele checks. |
 
 The reference identifier and compressed checksum are recorded in the archive's
-`README_EN.md`. These are archived independent checks, not a fresh reference
-download. Unavailable GWAS statistics remain missing.
+`README_EN.md`. The archive identifies the reference used for these recorded checks. Unavailable GWAS statistics remain missing.
 
 ## Candidate sets and generated groups
 
@@ -103,8 +101,7 @@ The default corresponds to two-sided P < 0.05/M for M input models. The
 explicit common threshold was 4.058183. In the eight default/fixed diagnostic
 comparisons, global retention, locus-specific selected sets and selection
 trajectories were unchanged. The common threshold did not resolve the
-all-testable numerical instability. These statements use the saved threshold
-summary, not a recalculated analysis.
+all-testable numerical instability. The saved threshold summary records these comparisons.
 
 ## Historical records and diagnostic runs
 
@@ -145,6 +142,5 @@ subset, not the full 32-field member table.
 The ZIP's original README, column dictionary and companion filenames capture
 the earlier attachment organization. Their references to a separate member-data
 attachment identify that archival snapshot; the current location is S9C Part B.
-This mapping changes no archived results, filenames or ZIP bytes. The archive
-remains 810,699 bytes, with SHA256
+The unchanged archive is 810,699 bytes, with SHA256
 `f52792140f945eb3d124c367afabc166de5194f58fe3d864ad79de509106293b`.

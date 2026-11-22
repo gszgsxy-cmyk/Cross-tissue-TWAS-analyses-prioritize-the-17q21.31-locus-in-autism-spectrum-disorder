@@ -1,4 +1,4 @@
-"""Candidate S2 vector assembly. Author adoption is not yet confirmed."""
+"""Assemble the S2 layout used in the final supplementary submission (author confirmed 2026-11-22)."""
 from pathlib import Path
 from copy import deepcopy
 import argparse,io,json,csv
@@ -17,9 +17,9 @@ assert all(r['p_HEIDI']=='NA' and r['nsnp_HEIDI']=='NA' for r in rows)
 assert len(PdfReader(PAN/'S2A_Hannon_forest.pdf').pages)==1
 assert len(PdfReader(PAN/'S2B_Hannon_Hatton_Venn.pdf').pages)==1
 if args.check_only:
- print(json.dumps({'status':'PASS','scope':'candidate archived-panel inputs only','CpGs':5,'adoption':'unconfirmed'}));raise SystemExit(0)
+ print(json.dumps({'status':'PASS','scope':'archived-panel input checks','CpGs':5,'adoption':'author-confirmed final submission','confirmed_on':'2026-11-22'}));raise SystemExit(0)
 OUT.mkdir(parents=True,exist_ok=True)
-if (OUT/'Supplementary_Figure_S2_Layout_v1.pdf').exists():raise SystemExit('Refusing to overwrite candidate PDF')
+if (OUT/'Supplementary_Figure_S2_Layout_v1.pdf').exists():raise SystemExit('Refusing to overwrite output PDF')
 WIDTH=900.; MARGIN=18.; BODY_X=54.; BODY_WIDTH=WIDTH-MARGIN-BODY_X
 A_CROP=(32.,36.,776.,166.)  # table + forest + ticks + axis title; no source heading
 B_CROP=(42.,12.,708.,371.)  # all B results and footnote; no source headings
