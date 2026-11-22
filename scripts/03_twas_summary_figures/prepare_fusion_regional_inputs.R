@@ -1,6 +1,11 @@
+# 准备17q21.31区域FUSION条件/联合分析输入。
+# 输入包括历史合并表及GTEx v8 Whole Blood、GENCODE v26更新结果。
+# 保留区域筛选、权重路径核查及原有输入文件导出规则。
+# 本文件为历史交互式处理记录，重复读取及会话清理步骤均保留。
+
 root <- "__USER_HOME__/Desktop/TWAS/FUSION/fusion_twas-master"
 
-# 找正式的29 tissues × 22 chromosomes合并结果
+# 定位按29种组织和22条常染色体汇总的历史FUSION结果文件。
 fusion_file <- list.files(
   root,
   pattern = "^ASD\\.FUSION\\.all29\\.allchr\\.withFDR\\.dat$",
@@ -136,10 +141,10 @@ setdiff(required_cols, colnames(fusion_all))
 
 # -------------------------------------------------------------------------
 
-# 回到FUSION根目录，保证FILE中的相对路径可正常访问
+# 切换至FUSION项目根目录，按原有FILE字段检查相对路径。
 setwd(root)
 
-# 1. Core结果汇总
+# 汇总核心区间的显著关联、基因、组织及重复模型。
 cat("Core associations:", nrow(core_sig), "\n")
 cat("Core tissues:", length(unique(core_sig$PANEL)), "\n")
 cat("Core genes:", length(unique(core_sig$ID)), "\n")
@@ -149,12 +154,12 @@ cat(
   "\n"
 )
 
-# 2. Extended结果汇总
+# 汇总扩展区间的显著关联、基因和组织。
 cat("Extended associations:", nrow(extended_sig), "\n")
 cat("Extended tissues:", length(unique(extended_sig$PANEL)), "\n")
 cat("Extended genes:", length(unique(extended_sig$ID)), "\n")
 
-# 3. post_process需要的关键字段
+# 核查FUSION post-process输入所需字段。
 needed_post <- c(
   "PANEL","FILE","ID","CHR","P0","P1",
   "MODEL","TWAS.Z","TWAS.P"
@@ -166,7 +171,7 @@ cat(
   "\n"
 )
 
-# 4. 检查权重文件能否实际找到
+# 检查核心区间与扩展区间的权重文件是否存在。
 cat(
   "Core weight files found:",
   sum(file.exists(core_sig$FILE)),
@@ -183,7 +188,7 @@ cat(
   "\n"
 )
 
-# 看几个FILE路径
+# 查看核心区间模型的权重文件路径示例。
 head(core_sig$FILE, 5)
 
 missing_core <- core_sig[
@@ -221,6 +226,7 @@ for (f in unique(missing_extended$FILE)) {
 }
 
 
+# 导出权重路径修复前的扩展区间中间表。
 write.table(
   extended_sig,
   file.path(root, "TEMP_17q21.31_extended_before_pathfix.dat"),
@@ -232,7 +238,7 @@ write.table(
 # -------------------------------------------------------------------------
 
 
-# 检查正式合并结果里是否仍有旧版 Whole Blood
+# 检查历史合并结果是否仍含GTEx.Whole_Blood旧版本记录。
 old_wb <- fusion_all[
   fusion_all$PANEL == "GTEx.Whole_Blood" |
     grepl("GTEx\\.Whole_Blood", fusion_all$FILE),
@@ -282,19 +288,19 @@ new_wb_region[, c(
 
 
 
-# 1 -----------------------------------------------------------------------
+# 核查Whole Blood版本标识并保留原有旧版本排除步骤。
 
-# 看所有带 Whole_Blood 的 PANEL 名称
+# 列出PANEL字段中包含Whole_Blood的组织面板标识。
 sort(unique(
   fusion_all$PANEL[
     grepl("Whole_Blood", fusion_all$PANEL)
   ]
 ))
 
-# 旧 Whole Blood 总数
+# 统计GTEx.Whole_Blood旧版本记录数。
 sum(fusion_all$PANEL == "GTEx.Whole_Blood")
 
-# 新 Whole Blood 总数
+# 统计GTExv8.ALL.Whole_Blood面板记录数。
 sum(fusion_all$PANEL == "GTExv8.ALL.Whole_Blood")
 
 fusion_no_oldWB <- fusion_all[
@@ -331,7 +337,7 @@ basename(wb_new_files)
 
 
 
-# 1 -----------------------------------------------------------------------
+# 读取GTEx v8 Whole Blood及GENCODE v26更新后的合并结果。
 
 
 fusion_final_file <- file.path(
@@ -374,7 +380,7 @@ cat(
 )
 
 
-# 2 -----------------------------------------------------------------------
+# 按历史处理顺序清理会话对象并重新读取结果。
 
 rm(
   fusion_all,
@@ -450,7 +456,7 @@ grep(
 )
 colnames(fusion_all)
 
-# 111 ---------------------------------------------------------------------
+# 清理区域中间对象，准备最终输入核查。
 rm(list = intersect(
   c(
     "sig_all",
@@ -467,7 +473,7 @@ rm(list = intersect(
 setwd(root)
 
 # ============================================================
-# QC-1: final merged FUSION dataset
+# QC-1：核查最终合并结果的行列数、29种组织及Whole Blood版本。
 # ============================================================
 
 cat("Rows:", nrow(fusion_all), "\n")
@@ -522,7 +528,7 @@ cat(
   "\n"
 )
 # ============================================================
-# QC-2: formally significant FUSION associations
+# QC-2：按既有全组织BH-FDR阈值提取显著FUSION关联。
 # ============================================================
 
 sig_all <- fusion_all[
@@ -536,7 +542,7 @@ sig_all <- fusion_all[
 cat("All-tissue FDR-significant associations:", nrow(sig_all), "\n")
 
 # ============================================================
-# QC-3: predefined GRCh38 17q21.31 intervals
+# QC-3：按预定义GRCh38核心区间及两侧各扩展1 Mb的区间筛选模型。
 # ============================================================
 
 core_start <- 45414716
@@ -615,19 +621,19 @@ cat(
   "\n"
 )
 # ============================================================
-# QC-4: resolve weight-file paths
+# QC-4：解析模型权重路径并保留对应组织目录内的检索规则。
 # ============================================================
 
 make_absolute_file <- function(f) {
   
   f2 <- gsub("\\\\", "/", f)
   
-  # already absolute
+  # 保留已包含Windows盘符的绝对路径。
   if (grepl("^[A-Za-z]:/", f2)) {
     return(f2)
   }
   
-  # remove leading ./ or ./
+  # 去除相对路径开头的 ./。
   f2 <- sub("^\\./", "", f2)
   
   file.path(root, f2)
@@ -638,7 +644,7 @@ resolve_weight_paths <- function(dat) {
   
   out <- dat
   
-  # first convert ordinary relative paths to absolute
+  # 将其余相对路径连接至FUSION项目根目录。
   candidate <- vapply(
     out$FILE,
     make_absolute_file,
@@ -647,7 +653,7 @@ resolve_weight_paths <- function(dat) {
   
   for (i in seq_len(nrow(out))) {
     
-    # ordinary path exists
+    # 优先使用已存在的候选权重路径。
     if (file.exists(candidate[i])) {
       out$FILE[i] <- normalizePath(
         candidate[i],
@@ -657,7 +663,7 @@ resolve_weight_paths <- function(dat) {
       next
     }
     
-    # if not, search only inside the corresponding tissue directory
+    # 候选路径不存在时，仅在对应组织的权重目录内检索同名文件。
     panel_dir <- file.path(
       root,
       "WEIGHTS",
@@ -737,6 +743,7 @@ missing_extended <- extended_input[
 missing_core
 missing_extended
 
+# 按原有文件名导出核心与扩展区间输入，并重新读取核查。
 # -------------------------------------------------------------------------
 
 core_input_file <- file.path(
@@ -831,6 +838,7 @@ write.table(
   row.names = FALSE,
   na = "NA"
 )
+# 按FUSION post-process字段顺序构建核心区间输入表。
 fusion_cols <- c(
   "PANEL",
   "FILE",
@@ -886,7 +894,7 @@ test_post <- read.table(
 dim(test_post)
 colnames(test_post)
 
-# 找 -----------------------------------------------------------------------
+# 按带版本及不带版本的Ensembl ID查看MAPT-AS1关联记录。
 
 
 fusion_all[
@@ -917,6 +925,7 @@ fusion_all[
 ]
 
 
+# 使用相同字段顺序构建扩展区间post-process输入表。
 extended_post <- extended_input[, fusion_cols]
 
 extended_post_file <- file.path(
@@ -933,7 +942,7 @@ write.table(
   na = "NA"
 )
 
-# 用 FUSION 自己的读取方式验证
+# 使用FUSION post-process对应的read.table参数复核扩展区间输入。
 extended_test <- read.table(
   extended_post_file,
   as.is = TRUE,

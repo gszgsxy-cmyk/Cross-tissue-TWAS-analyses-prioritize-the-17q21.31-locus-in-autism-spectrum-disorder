@@ -1,11 +1,13 @@
 # ============================================================
-# 17q21.31 FUSION conditional/joint result integration
-# 2026-09-11
+# 整合17q21.31区域FUSION条件/联合分析结果与基因注释。
+# 原始记录日期：2026-09-11。
 # ============================================================
+# 输入为既有扩展区间post-process、included/dropped及边际关联结果。
+# 生成会话中的注释表和基因汇总，并输出描述性统计。
 
 root <- "__USER_HOME__/Desktop/TWAS/FUSION/fusion_twas-master"
 
-# 1. 读取最终新版29组织FUSION结果
+# 1. 读取29种组织的GTEx v8 Whole Blood及GENCODE v26更新结果。
 fusion_final_file <- file.path(
   root,
   "ASD.FUSION.all29.GTExv8WB.updated.GENCODEv26.allchr.withFDR.dat"
@@ -21,7 +23,7 @@ fusion_all <- read.delim(
   check.names = FALSE
 )
 
-# 2. 读取昨天已经生成的 extended post-process input
+# 2. 读取既有扩展区间post-process输入文件。
 extended_post_file <- file.path(
   root,
   "ASD.FUSION.17q21.31.GRCh38.extended.alltissueFDR005.postprocess.dat"
@@ -33,7 +35,7 @@ extended_post <- read.table(
   as.is = TRUE
 )
 
-# 3. 读取FUSION conditional/joint结果
+# 3. 读取FUSION条件/联合分析的included与dropped结果。
 inc_file <- file.path(
   root,
   "POST_GRCh38",
@@ -60,7 +62,7 @@ joint_drop <- read.delim(
   check.names = FALSE
 )
 
-# 4. 统一included / dropped字段
+# 4. 统一保留状态及条件/联合统计量字段，保留原有字段赋值规则。
 joint_inc$STATUS <- "INCLUDED"
 joint_drop$STATUS <- "DROPPED"
 
@@ -89,7 +91,7 @@ cat("Joint result rows:", nrow(joint_all), "\n")
 print(table(joint_all$STATUS))
 
 # ============================================================
-# 5. 从postprocess input恢复PANEL等模型信息
+# 5. 按FILE和ID连接输入模型的PANEL及坐标信息。
 # ============================================================
 
 post_key <- extended_post[, c(
@@ -114,7 +116,7 @@ cat(
   "\n"
 )
 # ============================================================
-# 6. 接回正式FUSION marginal结果 + gene annotation
+# 6. 按PANEL和ID连接边际关联统计量及基因注释。
 # ============================================================
 
 annotation <- fusion_all[, c(
@@ -131,7 +133,7 @@ annotation <- fusion_all[, c(
   "FDR_NONBRAIN"
 )]
 
-# 检查 PANEL+ID 是否唯一
+# 检查注释表中PANEL与ID组合的唯一性。
 cat(
   "Duplicated PANEL+ID in annotation:",
   sum(duplicated(paste(annotation$PANEL, annotation$ID))),
@@ -201,12 +203,12 @@ print(
   row.names = FALSE
 )
 
-# 每个重点基因有多少显著gene-tissue models进入conditional分析
+# 按关注基因统计进入条件/联合分析的显著基因–组织模型数。
 table(
   target_joint$GENE_SYMBOL_GENCODE
 )
 
-# 每个重点基因中最小conditional/joint P值
+# 汇总各关注基因的最小条件/联合分析P值。
 aggregate(
   POST.P ~ GENE_SYMBOL_GENCODE,
   data = target_joint,
@@ -219,8 +221,8 @@ setdiff(
 )
 
 # ============================================================
-# 所有在17q21.31 core区域内有FUSION模型的基因
-# 不考虑显著性
+# 提取与17q21.31核心区间重叠的全部FUSION模型及基因。
+# 此处保留所有可检验模型，不按显著性筛选。
 # ============================================================
 
 core_start <- 45414716
@@ -281,7 +283,7 @@ setdiff(
 )
 
 # ============================================================
-# Gene-level summary for all FUSION-testable genes in core locus
+# 按基因汇总核心区间可检验模型、全组织FDR显著模型及最小边际P值。
 # ============================================================
 
 core_gene_summary <- do.call(

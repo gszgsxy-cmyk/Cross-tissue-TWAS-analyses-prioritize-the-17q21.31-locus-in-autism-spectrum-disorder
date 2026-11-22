@@ -1,3 +1,7 @@
+# 整理各组织JTI结果并与FUSION比较共享基因和关联方向。
+# 保留全组织及脑/非脑组织分组BH-FDR定义和原有有效P值筛选。
+# 输入文件名、数据字段及所有结果导出文件名保持原样。
+
 jti_dir <- "__USER_HOME__/Desktop/TWAS/MR-JTI-master/model_training/predixcan/src"
 
 jti_files <- list.files(
@@ -8,6 +12,7 @@ jti_files <- list.files(
 
 length(jti_files)
 basename(jti_files)
+# 核对各组织输入表头是否一致。
 header_list <- lapply(
   jti_files,
   function(f) {
@@ -40,6 +45,7 @@ names(x_test)
 head(x_test)
 
 
+# 逐组织导入结果，并从文件名提取组织及来源标识。
 jti_list <- lapply(
   jti_files,
   function(f) {
@@ -114,6 +120,7 @@ jti_tissue_qc <- jti_tissue_qc[
 jti_tissue_qc
 
 
+# 保留原始基因标识，并建立Ensembl ID与基因符号字段。
 jti_all$GENE_ID_ORIGINAL <- as.character(
   jti_all$gene
 )
@@ -137,6 +144,7 @@ head(
     )
   ]
 )
+# 按原有规则转换Z值、效应值及P值的数据类型。
 jti_all$zscore <- suppressWarnings(
   as.numeric(jti_all$zscore)
 )
@@ -153,6 +161,7 @@ summary(jti_all$effect_size)
 summary(jti_all$pvalue)
 
 
+# 有效P值定义为有限数值且位于[0, 1]。
 valid_jti <- (
   is.finite(jti_all$pvalue) &
     jti_all$pvalue >= 0 &
@@ -176,7 +185,7 @@ cat(
   "\n"
 )
 
-# 4计算FDR ------------------------------------------------------------------
+# 按原有有效P值集合分别计算全组织、脑组织及非脑组织BH-FDR。
 
 
 jti_all$FDR_ALL <- NA_real_
@@ -218,6 +227,7 @@ jti_all$FDR_NONBRAIN[
   ],
   method = "BH"
 )
+# 按既有FDR < 0.05阈值分别提取全组织与组织分组结果。
 jti_sig_all <- jti_all[
   !is.na(jti_all$FDR_ALL) &
     jti_all$FDR_ALL < 0.05,
@@ -316,7 +326,7 @@ cat(
   "=========================================\n"
 )
 
-# 9 -----------------------------------------------------------------------
+# 汇总脑组织与非脑组织分组中均达到既有显著性标准的JTI基因。
 jti_brain_genes <- unique(
   jti_sig_brain$ENSEMBL_ID
 )
@@ -361,6 +371,7 @@ print(
 )
 
 
+# 核查每个Ensembl ID对应的基因符号数量。
 jti_symbol_qc <- aggregate(
   GENE_SYMBOL ~ ENSEMBL_ID,
   data = unique(
@@ -384,7 +395,7 @@ jti_symbol_qc[
 
 
 
-# 12 和fusion联合交集 ----------------------------------------------------------
+# 读取FUSION共享基因表，并按Ensembl ID识别跨方法交集。
 fusion_shared_file <- paste0(
   "__USER_HOME__/Desktop/TWAS/FUSION/",
   "fusion_twas-master/",
@@ -483,6 +494,7 @@ cross_table[
 ]
 
 
+# 按原有文件名导出JTI完整结果、显著结果和共享基因表。
 write.table(
   jti_all,
   file.path(
@@ -546,7 +558,7 @@ write.table(
   row.names = FALSE
 )
 
-# 矫正方向-------------------------------------------------------------------------
+# 按原始JTI Z值统计关联方向及组织分组显著特征数量。
 display_map <- setNames(
   cross_table$JTI_GENE_SYMBOL,
   cross_table$ENSEMBL_ID
@@ -713,7 +725,7 @@ write.table(
 print(jti_direction_summary, row.names = FALSE)
 
 
-# 合并 ----------------------------------------------------------------------
+# 读取FUSION边际结果，汇总跨方法共享基因的方向一致性。
 
 fusion_file <- paste0(
   "__USER_HOME__/Desktop/TWAS/FUSION/",
@@ -863,6 +875,7 @@ print(
   fusion_direction_summary,
   row.names = FALSE
 )
+# 根据显著特征的正负Z值数量判定方向类别。
 classify_direction <- function(pos, neg) {
   
   if (pos > 0 & neg == 0) {
@@ -958,6 +971,7 @@ names(cross_direction_final)
 print(cross_direction_final, row.names = FALSE)
 
 
+# 导出跨方法方向汇总及按原有规则筛选的一致正向基因表。
 write.table(
   cross_direction_final,
   file.path(
